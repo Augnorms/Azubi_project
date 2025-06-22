@@ -1,16 +1,19 @@
 import { defineStore } from 'pinia'
+import type { PersistenceOptions } from 'pinia-plugin-persistedstate'
+
+type CartItem = {
+  id: number
+  name: string
+  price: number
+  image: string
+  quantity: number
+}
 
 export const useCartStore = defineStore('cart', {
   state: () => ({
     cartStatus: false,
     thankyouStatus: false,
-    items: [] as Array<{
-      id: number
-      name: string
-      price: number
-      image: string
-      quantity: number
-    }>
+    items: [] as CartItem[]
   }),
   actions: {
     setCartStatus(status: boolean) {
@@ -19,15 +22,15 @@ export const useCartStore = defineStore('cart', {
     setThankyouStatus(status: boolean) {
       this.thankyouStatus = status
     },
-    addItem(item: Omit<typeof this.items[number], 'quantity'>, qty = 1) {
-      const existing = this.items.find(i => i.id === item.id)
+    addItem(item: Omit<CartItem, 'quantity'>, qty = 1) {
+      const existing: CartItem | undefined = this.items.find((i: CartItem) => i.id === item.id)
       if (existing) {
         existing.quantity += qty
       } else {
         this.items.push({ ...item, quantity: qty })
       }
     },
-    updateItems(newItems: typeof this.items) {
+    updateItems(newItems: CartItem[]) {
       this.items = newItems
     },
     removeAll() {
@@ -35,7 +38,7 @@ export const useCartStore = defineStore('cart', {
     },
   },
   persist: {
-    paths: ['items'],
-    storage: localStorage
-  }
+    storage: localStorage,
+    paths: ['items']
+  } as PersistenceOptions
 })

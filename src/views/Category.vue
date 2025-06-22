@@ -26,7 +26,7 @@ const products = computed(() =>
 <template>
   <div class="category-page">
     <section class="category-banner">
-      <h1 class="font-semibold">{{ currentCategory.toUpperCase() }}</h1>
+      <h1 class="font-semibold">{{ String(currentCategory).toUpperCase() }}</h1>
     </section>
 
     <section class="product-list">
@@ -36,7 +36,7 @@ const products = computed(() =>
         :class="['product-item', { reverse: i % 2 }]"
       >
         <div class="image-wrapper">
-          <img :src="getImage(product.image.desktop)" :alt="product.name" />
+          <img :src="getImage(product.image.desktop) as string" :alt="product.name" />
         </div>
 
         <div class="product-info">

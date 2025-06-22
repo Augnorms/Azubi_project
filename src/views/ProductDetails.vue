@@ -56,7 +56,7 @@ function addToCart() {
       id: product.value.id,
       name: product.value.name,
       price: product.value.price,
-      image: getImage(product.value.image.desktop),
+      image: getImage(product.value.image.desktop) as string,
     },
     quantity.value
   );
