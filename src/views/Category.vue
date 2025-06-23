@@ -1,25 +1,28 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
-import SharedAudioGearComp from '@/components/SharedAudioGearComp.vue';
+import { computed } from "vue";
+import { useRoute } from "vue-router";
+import SharedAudioGearComp from "@/components/SharedAudioGearComp.vue";
 import HomeSecondBanner from "@/components/Home_components/HomeSecondBanner.vue";
-import data from '../data.json';
+import data from "../data.json";
 
 // 1. Load all assets once (eagerly) using glob
-const modules = import.meta.glob('../assets/product-**/**/desktop/*.{jpg,png}', { eager: true, import: 'default' });
+const modules = import.meta.glob(
+  "../assets/product-**/**/desktop/*.{jpg,png}",
+  { eager: true, import: "default" }
+);
 
 // 2. Utility to resolve image path via your data.json key
 const getImage = (imgPath: string) => {
-  const key = imgPath.replace('./', '../'); 
+  const key = imgPath.replace("./", "../");
   const mod = modules[key];
-  return mod || '';
+  return mod || "";
 };
 
 const route = useRoute();
 const currentCategory = computed(() => route.params.category);
 
 const products = computed(() =>
-  data.filter(p => p.category === currentCategory.value)
+  data.filter((p) => p.category === currentCategory.value)
 );
 </script>
 
@@ -36,7 +39,10 @@ const products = computed(() =>
         :class="['product-item', { reverse: i % 2 }]"
       >
         <div class="image-wrapper">
-          <img :src="getImage(product.image.desktop) as string" :alt="product.name" />
+          <img
+            :src="getImage(product.image.desktop) as string"
+            :alt="product.name"
+          />
         </div>
 
         <div class="product-info">
@@ -46,7 +52,10 @@ const products = computed(() =>
 
           <p class="description">{{ product.description }}</p>
 
-          <router-link :to="`/${product.category}/${product.slug}`" class="btn-primary">
+          <router-link
+            :to="`/${product.category}/${product.slug}`"
+            class="btn-primary"
+          >
             SEE PRODUCT
           </router-link>
         </div>
@@ -58,7 +67,7 @@ const products = computed(() =>
     <SharedAudioGearComp />
   </div>
 </template>
-  
+
 <style scoped>
 .category-banner {
   background-color: #000;
@@ -85,10 +94,19 @@ const products = computed(() =>
   flex-wrap: wrap;
 }
 
+/* Reverse layout for even index */
 .product-item.reverse {
   flex-direction: row-reverse;
 }
 
+/* Image responsive behavior */
+.image-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center; /* Center image horizontally */
+}
+
+/* Make image responsive */
 .image-wrapper img {
   width: 100%;
   max-width: 540px;
@@ -135,5 +153,27 @@ const products = computed(() =>
 
 .btn-primary:hover {
   background-color: #fbaf85;
+}
+
+/* Responsive adjustments for tablets and smaller */
+@media (max-width: 768px) {
+  .product-item,
+  .product-item.reverse {
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .product-info {
+    padding: 0;
+  }
+
+  .image-wrapper {
+    justify-content: center;
+  }
+
+  .product-info h2 {
+    font-size: 1.5rem;
+  }
 }
 </style>

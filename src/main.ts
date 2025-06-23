@@ -5,6 +5,7 @@ import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import { GDialog, plugin as GDialogPlugin } from 'gitart-vue-dialog'
 import 'gitart-vue-dialog/dist/style.css'
+import "./style.css";
 
 const app = createApp(App)
 const pinia = createPinia()
