@@ -175,6 +175,9 @@ function addToCart() {
 </template>
 
 <style scoped>
+/* Your existing styles remain the same until the responsive section */
+
+/* Original styles... */
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -303,7 +306,7 @@ function addToCart() {
   margin-right: 0.5rem;
 }
 
-/* Fix: Gallery Section */
+/* Gallery Section */
 .gallery {
   display: flex;
   justify-content: center;
@@ -327,7 +330,7 @@ function addToCart() {
   object-fit: cover;
 }
 
-/* Fix: Related Products Section */
+/* Related Products Section */
 .related-products {
   text-align: center;
   margin: 6rem auto;
@@ -339,13 +342,11 @@ function addToCart() {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 2.5rem; /* Wider spacing between items */
+  gap: 2.5rem;
   margin-top: 3rem;
 }
 
 .related-item {
-  background: none;
-  padding: 0;
   flex: 0 1 350px;
   text-align: center;
 }
@@ -393,52 +394,138 @@ function addToCart() {
   padding: 4rem;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .hero-inner,
-  .details-section,
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+  .hero-inner {
+    flex-direction: column;
+    gap: 2.5rem;
+    text-align: center;
+  }
+
+  .hero-img {
+    max-width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  .info {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
+  .details-section {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 3rem 1rem;
+  }
+
+  .features, 
+  .includes {
+    width: 100%;
+  }
+
   .gallery {
     flex-direction: column;
-    align-items: center;
+    gap: 1.5rem;
   }
 
-  .info,
-  .hero-img,
-  .features,
-  .includes,
   .gallery-left,
   .gallery-right {
-    max-width: 100%;
-  }
-
-  .cart-actions {
-    flex-direction: column;
-    align-items: flex-start;
+    width: 100%;
   }
 
   .related-list {
     flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* Mobile (up to 767px) */
+@media (max-width: 767px) {
+  .hero-inner {
+    gap: 2rem;
+    padding: 0;
   }
 
-  /* Fix: Cart Dialog */
-  .cart-dialog-content {
-    position: relative; /* allows absolute positioning inside */
-    padding: 0; /* remove default padding */
+  .hero-img {
+    border-radius: 0;
+    margin-bottom: 0;
+  }
+
+  .info {
+    padding: 2rem 1.5rem;
+    text-align: left;
+  }
+
+  .overline {
+    font-size: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .description {
+    font-size: 0.9375rem;
+    margin: 1rem 0;
+  }
+
+  .cart-actions {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .qty-control {
+    width: 120px;
+  }
+
+  .btn-primary {
+    width: 160px;
+  }
+
+  .details-section {
+    padding: 2rem 1.5rem;
+    text-align: left;
+  }
+
+  .gallery {
+    margin: 2rem auto;
+    gap: 1rem;
+  }
+
+  .gallery img {
+    border-radius: 0;
+  }
+
+  .related-products {
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+  }
+
+  .related-item {
+    margin-bottom: 2rem;
+  }
+}
+
+/* Small Mobile (up to 480px) */
+@media (max-width: 480px) {
+  .info {
+    padding: 1.5rem 1rem;
+  }
+
+  .cart-actions {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .qty-control,
+  .btn-primary {
     width: 100%;
-    height: 100%;
-    display: flex;
   }
 
-  .cart-panel {
-    position: absolute;
-    top: 1rem; /* adjust as needed */
-    right: 1rem; /* adjust as needed */
-    width: 377px;
-    height: 488px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-    padding: 24px;
+  .details-section {
+    padding: 1.5rem 1rem;
   }
 }
 </style>
